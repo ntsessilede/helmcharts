@@ -15,11 +15,12 @@ spec:
       containers:
       - name: {{ .Values.deployment.container.name }}
         image: {{ .Values.deployment.container.image }}
-        args: {{ .Values.deployment.container.args }}
-        # ports:
-        # - containerPort: {{ .Values.deployment.container.port }}
+        args:
+          {{- range .Values.deployment.container.args }}
+          - "{{ . }}"
+          {{- end }}
         ports:
-        - containerPort: 443
+        - containerPort: {{ .Values.deployment.container.port }}
         volumeMounts:
         - name: {{ .Values.deployment.volume.name }}
           mountPath: {{ .Values.deployment.volume.mountPath }}
