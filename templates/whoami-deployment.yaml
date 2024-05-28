@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.app }}
+    spec:
+      containers:
+      - name: {{ .Values.deployment.container.name }}
+        image: {{ .Values.deployment.container.image }}
+        args: {{ .Values.deployment.container.args }}
+        ports:
+        - containerPort: {{ .Values.deployment.container.port }}
+        volumeMounts:
+        - name: {{ .Values.deployment.volume.name }}
+          mountPath: {{ .Values.deployment.volume.mountPath }}
+          readOnly: true
+      volumes:
+      - name: {{ .Values.deployment.volume.name }}
+        secret:
+          secretName: {{ .Values.deployment.volume.secretName }}
+      nodeSelector: {{ .Values.deployment.nodeSelector }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name }}
+  annotations: {{ .Values.service.annotations }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ .Values.service.app }}
+  ports:
+    - protocol: {{ .Values.service.protocol }}
