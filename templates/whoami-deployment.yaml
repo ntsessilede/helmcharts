@@ -16,8 +16,10 @@ spec:
       - name: {{ .Values.deployment.container.name }}
         image: {{ .Values.deployment.container.image }}
         args: {{ .Values.deployment.container.args }}
+        # ports:
+        # - containerPort: {{ .Values.deployment.container.port }}
         ports:
-        - containerPort: {{ .Values.deployment.container.port }}
+        - containerPort: 443
         volumeMounts:
         - name: {{ .Values.deployment.volume.name }}
           mountPath: {{ .Values.deployment.volume.mountPath }}
@@ -26,5 +28,5 @@ spec:
       - name: {{ .Values.deployment.volume.name }}
         secret:
           secretName: {{ .Values.deployment.volume.secretName }}
-      nodeSelector: {{ .Values.deployment.nodeSelector }}
-      
+      nodeSelector: 
+        {{- toYaml .Values.deployment.nodeSelector | nindent 8 }}
