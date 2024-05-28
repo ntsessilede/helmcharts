@@ -11,7 +11,12 @@ deployment:
     #   - "/etc/tls/tls.key"
     #   - "-port"
     #   - "443"
-    args: ["-cert=/etc/tls/tls.crt", "-key=/etc/tls/tls.key", "-port=443"]
+    # args: ["-cert=/etc/tls/tls.crt", "-key=/etc/tls/tls.key", "-port=443"]
+    args: 
+      - "-cert=/etc/tls/tls.crt"
+      - "-key=/etc/tls/tls.key"
+      - "-port=443"
+
     port: 443
   volume:
     name: tls
