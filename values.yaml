@@ -18,7 +18,7 @@ deployment:
     secretName: my-tls-secret
   nodeSelector:
     kubernetes.io/arch: amd64
-    eks.amazonaws.com/nodegroup: managed-ng-1
+    # eks.amazonaws.com/nodegroup: managed-ng-1
 
 service:
   name: whoami-service
